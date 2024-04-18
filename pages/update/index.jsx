@@ -29,19 +29,30 @@ export default function Data() {
                 setUF(response.data.uf)
                 setCep(response.data.cep)
                 setEmail(response.data.email)
+                setNum(response.data.numero)
             })
     }
 
     const put = () => {
-        axios.put('http://127.0.0.1:8000/api/usuario/' + userId)
+        axios.put('http://127.0.0.1:8000/api/usuario/' + userId,{
+            'nome': usuario,
+            'rua': rua,
+            'bairro': bairro,
+            'cidade': cidade,
+            'uf': uf,
+            'cep': cep,
+            'email': email,
+            'numero': num
+        })
             .then((response) => {
-                setUsuario(response.data.nome)
-                setRua(response.data.rua)
-                setBairro(response.data.bairro)
-                setCidade(response.data.cidade)
-                setUF(response.data.uf)
-                setCep(response.data.cep)
-                setEmail(response.data.email)
+                setUsuario('')
+                setRua('')
+                setBairro('')
+                setCidade('')
+                setUF('')
+                setCep('')
+                setNum('')
+                setEmail('')
             })
     }
 
@@ -109,6 +120,7 @@ export default function Data() {
                     onChangeText={setBairro}
                     value={bairro}
                 />
+
                 <View style={styles.cx}>
                     <Text style={styles.textoCidade2}>Cidade:</Text>
                     <Text style={styles.textoUf2}>UF:</Text>
@@ -125,13 +137,13 @@ export default function Data() {
                         value={uf}
                     />
                 </View>
+
                 <Text style={styles.texto2}>Email:</Text>
                 <TextInput
                     style={styles.textoNomeEmail}
                     onChangeText={setEmail}
                     value={email}
                 />
-
 
                 <Text style={styles.texto2}>Senha:</Text>
                 <TextInput

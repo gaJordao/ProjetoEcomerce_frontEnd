@@ -31,6 +31,19 @@ export default function Data() {
             })
     }
 
+    const del = () => {
+        axios.delete('http://127.0.0.1:8000/api/usuario/' + userId)
+            .then(() => {
+                setUsuario('')
+                setRua('')
+                setBairro('')
+                setCidade('')
+                setUF('')
+                setCep('')
+                setEmail('')
+            })
+    }
+
     return (
         <View style={styles.container}>
             <Text style={styles.title}>DELETE</Text>
@@ -41,14 +54,14 @@ export default function Data() {
             />
             {/* ##################### GET  ############################ */}
             <View>
-                            <Pressable
+                <Pressable
                     style={styles.btn}
                     onPress={get}
                 >
                     <Text style={{ fontWeight: 'bold', color: "#fff" }}>BUSCAR</Text>
                 </Pressable>
             </View>
-            
+
             <View style={styles.campos}>
                 <Text style={styles.texto2}>Nome:</Text>
                 <Text style={styles.textoNomeEmail}>{usuario}</Text>
@@ -71,11 +84,11 @@ export default function Data() {
             </View>
 
             <Pressable
-                    style={styles.btnDeletar}
-                    onPress={get}
-                >
-                    <Text style={{ fontWeight: 'bold', color: "#fff" }}>DELETAR</Text>
-                </Pressable>
+                style={styles.btnDeletar}
+                onPress={del}
+            >
+                <Text style={{ fontWeight: 'bold', color: "#fff" }}>DELETAR</Text>
+            </Pressable>
         </View>
     );
 }

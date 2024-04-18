@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import AsyncStorage from "@react-native-async-storage/async-storage"
 import { StyleSheet, Text, View, TextInput, Pressable, Alert } from 'react-native';
 import styles from './styles';
 
@@ -16,10 +17,30 @@ export default function Data() {
     const [email, setEmail] = useState('')
     const [num, setNum] = useState('')
     const [userAdd, setUserEmail] = useState('')
+    const [token, setToken] = useState(null)
 
-    const get = () => {
-        axios.get('http://127.0.0.1:8000/api/usuario/' + userId)
-            .then((response) => {
+    useEffect(()=>{
+        AsyncStorage.setItem('token', token)
+        .then(()=>{
+            if(token!=null){
+                setToken(token)
+                console.log("Token SignIn: ", token)
+                console.log("Token Sucesso!")
+            }
+        })
+        .catch((erro)=>{
+            console.error("O Erro é",erro);
+        })
+    },[])
+
+
+    const get = async () => {
+        try{
+        const response = await axios.get('http://127.0.0.1:8000/api/usuario/' + userId,{
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
                 setUsuario(response.data.nome)
                 setRua(response.data.rua)
                 setBairro(response.data.bairro)
@@ -27,8 +48,13 @@ export default function Data() {
                 setUF(response.data.uf)
                 setCep(response.data.cep)
                 setEmail(response.data.email)
-            })
+            }
+            catch(erro){
+                console.error("Deu erro ",erro);
+            }
     }
+
+
 
     return (
         <View style={styles.container}>

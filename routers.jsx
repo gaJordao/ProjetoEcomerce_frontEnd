@@ -44,36 +44,36 @@ function MyTabs() {
                 name="Home"
                 component={Home}
                 options={{
-                    // headerShown:false,
+                    headerShown:false,
                     tabBarIcon: ({ size, color }) => (
                         <Feather name="home" size={size} color={color} />
                     )
                 }}
             />
+                <Tab.Screen
+                    name="Read"
+                    component={Read}
+                    options={{
+                        headerShown:false,
+                        tabBarIcon: ({ size, color }) => (
+                            <Feather name="file" size={size} color={color} />
+                        )
+                    }}
+                />
             <Tab.Screen
                 name="Create"
                 component={Create}
                 options={{
-                    // headerShown:false,
+                    headerShown:false,
                     tabBarIcon: ({ size, color }) => (
                         <Feather name="folder-plus" size={size} color={color} />
                     )
                 }} />
             <Tab.Screen
-                name="Read"
-                component={Read}
-                options={{
-                    // headerShown:false,
-                    tabBarIcon: ({ size, color }) => (
-                        <Feather name="file" size={size} color={color} />
-                    )
-                }}
-            />
-            <Tab.Screen
                 name="Update"
                 component={Update}
                 options={{
-                    // headerShown:false,
+                    headerShown:false,
                     tabBarIcon: ({ size, color }) => (
                         <Feather name="edit" size={size} color={color} />
                     )
@@ -83,7 +83,7 @@ function MyTabs() {
                 name="Delete"
                 component={Delete}
                 options={{
-                    // headerShown:false,
+                    headerShown:false,
                     tabBarIcon: ({ size, color }) => (
                         <Feather name="delete" size={size} color={color} />
                     )
@@ -92,7 +92,7 @@ function MyTabs() {
                 name="Data"
                 component={Data}
                 options={{
-                    // headerShown:false,
+                    headerShown:false,
                     tabBarIcon: ({ size, color }) => (
                         <Feather name="hard-drive" size={size} color={color} />
                     )
@@ -107,10 +107,9 @@ export default function Routers() {
     return (
         <NavigationContainer>
             <Pilha.Navigator>
-
                 <Pilha.Screen
-                    name="Update"
-                    component={Update}
+                    name="MyTabs"
+                    component={MyTabs}
                     options={{ headerShown: false }}
                 />
                 <Pilha.Screen
@@ -119,11 +118,15 @@ export default function Routers() {
                     options={{ headerShown: false }}
                 />
                 <Pilha.Screen
+                    name="Update"
+                    component={Update}
+                    options={{ headerShown: false }}
+                />
+                <Pilha.Screen
                     name="Create"
                     component={Create}
                     options={{ headerShown: false }}
                 />
-
                 <Pilha.Screen
                     name="Read"
                     component={Read}
@@ -132,11 +135,6 @@ export default function Routers() {
                 <Pilha.Screen
                     name="Data"
                     component={Data}
-                    options={{ headerShown: false }}
-                />
-                <Pilha.Screen
-                    name="MyTabs"
-                    component={MyTabs}
                     options={{ headerShown: false }}
                 />
 
@@ -158,6 +156,8 @@ export default function Routers() {
                     component={SignUp}
                     options={{ headerShown: false }}
                 />
+
+
 
 
 
