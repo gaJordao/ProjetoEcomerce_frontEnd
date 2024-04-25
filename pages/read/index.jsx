@@ -20,13 +20,10 @@ export default function Data() {
     const [token, setToken] = useState(null)
 
     useEffect(()=>{
-        AsyncStorage.setItem('token', token)
-        .then(()=>{
-            if(token!=null){
-                setToken(token)
-                console.log("Token SignIn: ", token)
-                console.log("Token Sucesso!")
-            }
+        AsyncStorage.getItem('token')
+        .then((tokenY)=>{
+                console.log("token read: ", tokenY)
+                setToken(tokenY)
         })
         .catch((erro)=>{
             console.error("O Erro é",erro);

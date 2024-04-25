@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import AsyncStorage from "@react-native-async-storage/async-storage"
 import { StyleSheet, Text, View, TextInput, Pressable, Alert } from 'react-native';
 import styles from './styles';
-
 
 export default function Data() {
 
@@ -17,10 +17,26 @@ export default function Data() {
     const [email, setEmail] = useState('')
     const [num, setNum] = useState('')
     const [userAdd, setUserEmail] = useState('')
+    const [token, setToken] = useState('')
 
-    const get = () => {
-        axios.get('http://127.0.0.1:8000/api/usuario/' + userId)
-            .then((response) => {
+    useEffect(()=>{
+        AsyncStorage.getItem('token')
+        .then((tokenY)=>{
+                console.log("token read: ", tokenY)
+                setToken(tokenY)
+        })
+        .catch((erro)=>{
+            console.error("O Erro é",erro);
+        })
+    },[])
+
+    const get = async (token) => {
+        try{
+        const response = await axios.get('http://127.0.0.1:8000/api/usuario/' + userId,{
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
                 setUsuario(response.data.nome)
                 setRua(response.data.rua)
                 setBairro(response.data.bairro)
@@ -28,12 +44,18 @@ export default function Data() {
                 setUF(response.data.uf)
                 setCep(response.data.cep)
                 setEmail(response.data.email)
-            })
+            }
+            catch(erro){
+                console.error("Deu erro ",erro);
+            }
     }
 
-    const del = () => {
-        axios.delete('http://127.0.0.1:8000/api/usuario/' + userId)
-            .then(() => {
+    const del = async(token) => {
+        axios.delete('http://127.0.0.1:8000/api/usuario/' + userId, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            },
+        })
                 setUsuario('')
                 setRua('')
                 setBairro('')
@@ -41,7 +63,6 @@ export default function Data() {
                 setUF('')
                 setCep('')
                 setEmail('')
-            })
     }
 
     return (
@@ -56,7 +77,7 @@ export default function Data() {
             <View>
                 <Pressable
                     style={styles.btn}
-                    onPress={get}
+                    onPress={()=>get(token)}
                 >
                     <Text style={{ fontWeight: 'bold', color: "#fff" }}>BUSCAR</Text>
                 </Pressable>
@@ -85,7 +106,7 @@ export default function Data() {
 
             <Pressable
                 style={styles.btnDeletar}
-                onPress={del}
+                onPress={()=>del(token)}
             >
                 <Text style={{ fontWeight: 'bold', color: "#fff" }}>DELETAR</Text>
             </Pressable>

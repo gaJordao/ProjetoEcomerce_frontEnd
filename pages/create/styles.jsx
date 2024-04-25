@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
         paddingLeft: 10,
         fontWeight: 'bold'
     },
-    textoPost: {
+    texto: {
         backgroundColor: '#bbb',
         width: '80%',
         height: 30,
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
         padding: 5,
         fontWeight: 'bold'
     },
-    textoNumPost: {
+    textoNum: {
         width: '20%',
         height: 30,
         borderRadius: 10,
@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
         padding: 5,
         fontWeight: 'bold',
     },
-    textoNomeEmailPost: {
+    textoNomeEmail: {
         width: '80%',
         height: 30,
         borderRadius: 10,
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
         padding: 5,
         fontWeight: 'bold',
     },
-    textoCidadePost: {
+    textoCidade: {
         backgroundColor: '#bbb',
         width: '80%',
         height: 30,
@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
         padding: 5,
         fontWeight: 'bold',
     },
-    textoUfPost: {
+    textoUf: {
         backgroundColor: '#bbb',
         width: '20%',
         height: 30,
@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
-    btnPost: {
+    btn: {
         width: '50%',
         height: 40,
         marginTop: 25,

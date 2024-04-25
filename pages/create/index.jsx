@@ -1,57 +1,79 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import AsyncStorage from "@react-native-async-storage/async-storage"
+
 import { StyleSheet, Text, View, TextInput, Pressable, Alert } from 'react-native';
 import styles from './styles';
 
 export default function Data() {
 
     // ############# POST ########################
-    const [userIdPost, setUserIdPost] = useState(0)
-    const [usuarioPost, setUsuarioPost] = useState('')
-    const [ruaPost, setRuaPost] = useState('')
-    const [bairroPost, setBairroPost] = useState('')
-    const [cidadePost, setCidadePost] = useState('')
-    const [ufPost, setUFPost] = useState('')
-    const [cepPost, setCepPost] = useState('')
-    const [emailPost, setEmailPost] = useState('')
-    const [numPost, setNumPost] = useState('')
-    const [passPost, setPasswordPost] = useState('')
+    const [userId, setUserId] = useState(0)
+    const [usuario, setUsuario] = useState('')
+    const [rua, setRua] = useState('')
+    const [bairro, setBairro] = useState('')
+    const [cidade, setCidade] = useState('')
+    const [uf, setUF] = useState('')
+    const [cep, setCep] = useState('')
+    const [email, setEmail] = useState('')
+    const [num, setNum] = useState('')
+    const [pass, setPassword] = useState('')
+    const [token, setToken] = useState('')
+    const dados = {
+        'nome': usuario,
+        'rua': rua,
+        'bairro': bairro,
+        'cidade': cidade,
+        'uf': uf,
+        'cep': cep,
+        'email': email,
+        'numero': num
+    }
 
-    const post = () => {
-        axios.post('http://127.0.0.1:8000/api/usuarios', {
-            'nome': usuarioPost,
-            'rua': ruaPost,
-            'bairro': bairroPost,
-            'cidade': cidadePost,
-            'uf': ufPost,
-            'cep': cepPost,
-            'email': emailPost,
-            'numero': numPost
-        }).then((response) => {
-            console.log(response)
-            setUserIdPost('')
-            setUsuarioPost('')
-            setRuaPost('')
-            setBairroPost('')
-            setCidadePost('')
-            setUFPost('')
-            setCepPost('')
-            setEmailPost('')
-            setNumPost('')
-            setPasswordPost('')
-        }).catch((error) => {
-            console.log(error)
+    useEffect(()=>{
+        AsyncStorage.getItem('token')
+        .then((tokenY)=>{
+                console.log("token create: ", tokenY)
+                setToken(tokenY)
         })
+        .catch((erro)=>{
+            console.error("O Erro é",erro);
+        })
+    },[])
+
+
+    const criar = async(dados, token) => {
+        try{
+            const response = await axios.post('http://127.0.0.1:8000/api/usuarios' , dados, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                },
+            });
+
+            setUserId('')
+            setUsuario('')
+            setRua('')
+            setBairro('')
+            setCidade('')
+            setUF('')
+            setCep('')
+            setEmail('')
+            setNum('')
+            setPassword('')
+        }
+        catch(erro){
+            console.error("Deu erro ",erro);
+        }
     }
 
     const buscar = () => {
-        axios.get('https://viacep.com.br/ws/' + cepPost + '/json/')
+        axios.get('https://viacep.com.br/ws/' + cep + '/json/')
             .then((response) => {
-                setRuaPost(response.data.logradouro)
-                setBairroPost(response.data.bairro)
-                setCidadePost(response.data.localidade)
-                setUFPost(response.data.uf)
-                setNumPost(response.data.numero)
+                setRua(response.data.logradouro)
+                setBairro(response.data.bairro)
+                setCidade(response.data.localidade)
+                setUF(response.data.uf)
+                setNum(response.data.numero)
             })
     }
 
@@ -67,9 +89,9 @@ export default function Data() {
             <View style={styles.campos}>
                 <Text style={styles.texto2}>Nome:</Text>
                 <TextInput
-                    style={styles.textoNomeEmailPost}
-                    onChangeText={setUsuarioPost}
-                    value={usuarioPost}
+                    style={styles.textoNomeEmail}
+                    onChangeText={setUsuario}
+                    value={usuario}
                 />
                 <View style={styles.cx}>
                     <Text style={styles.texto2}>Cep:</Text>
@@ -77,8 +99,8 @@ export default function Data() {
                 <View style={styles.cx}>
                     <TextInput
                         style={styles.textoCep}
-                        onChangeText={setCepPost}
-                        value={cepPost}
+                        onChangeText={setCep}
+                        value={cep}
                     />
                     <Pressable
                         style={styles.btnBuscar}
@@ -93,21 +115,21 @@ export default function Data() {
                 </View>
                 <View style={styles.cx}>
                     <TextInput
-                        style={styles.textoPost}
-                        onChangeText={setRuaPost}
-                        value={ruaPost}
+                        style={styles.texto}
+                        onChangeText={setRua}
+                        value={rua}
                     />
                     <TextInput
-                        style={styles.textoNumPost}
-                        onChangeText={setNumPost}
-                        value={numPost}
+                        style={styles.textoNum}
+                        onChangeText={setNum}
+                        value={num}
                     />
                 </View>
                 <Text style={styles.texto2}>Bairro:</Text>
                 <TextInput
-                    style={styles.textoPost}
-                    onChangeText={setBairroPost}
-                    value={bairroPost}
+                    style={styles.texto}
+                    onChangeText={setBairro}
+                    value={bairro}
                 />
                 <View style={styles.cx}>
                     <Text style={styles.textoCidade2}>Cidade:</Text>
@@ -115,34 +137,34 @@ export default function Data() {
                 </View>
                 <View style={styles.cx}>
                     <TextInput
-                        style={styles.textoCidadePost}
-                        onChangeText={setCidadePost}
-                        value={cidadePost}
+                        style={styles.textoCidade}
+                        onChangeText={setCidade}
+                        value={cidade}
                     />
                     <TextInput
-                        style={styles.textoUfPost}
-                        onChangeText={setUFPost}
-                        value={ufPost}
+                        style={styles.textoUf}
+                        onChangeText={setUF}
+                        value={uf}
                     />
                 </View>
                 <Text style={styles.texto2}>Email:</Text>
                 <TextInput
-                    style={styles.textoNomeEmailPost}
-                    onChangeText={setEmailPost}
-                    value={emailPost}
+                    style={styles.textoNomeEmail}
+                    onChangeText={setEmail}
+                    value={email}
                 />
 
 
                 <Text style={styles.texto2}>Senha:</Text>
                 <TextInput
                     style={styles.addNew}
-                    onChangeText={(e) => setPasswordPost(e)}
-                    value={passPost}
+                    onChangeText={(e) => setPassword(e)}
+                    value={pass}
                     secureTextEntry={true}
                 />
                 <Pressable
-                    style={styles.btnPost}
-                    onPress={post}
+                    style={styles.btn}
+                    onPress={()=>criar(dados, token)}
                 >
                     <Text style={styles.btnCadastrar}>CADASTRAR</Text>
                 </Pressable>

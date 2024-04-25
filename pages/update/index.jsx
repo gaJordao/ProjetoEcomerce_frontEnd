@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import AsyncStorage from "@react-native-async-storage/async-storage"
 import { StyleSheet, Text, View, TextInput, Pressable, Alert } from 'react-native';
 import styles from './styles';
 
@@ -18,10 +19,36 @@ export default function Data() {
     const [num, setNum] = useState('')
     const [userAdd, setUserEmail] = useState('')
     const [pass, setPassword] = useState('')
+    const [token, setToken] = useState('')
+    const dados = {
+        'nome': usuario,
+        'rua': rua,
+        'bairro': bairro,
+        'cidade': cidade,
+        'uf': uf,
+        'cep': cep,
+        'email': email,
+        'numero': num
+    }
 
-    const get = () => {
-        axios.get('http://127.0.0.1:8000/api/usuario/' + userId)
-            .then((response) => {
+    useEffect(()=>{
+        AsyncStorage.getItem('token')
+        .then((tokenY)=>{
+                console.log("token create: ", tokenY)
+                setToken(tokenY)
+        })
+        .catch((erro)=>{
+            console.error("O Erro é",erro);
+        })
+    },[])
+
+    const get = async () => {
+        try{
+        const response = await axios.get('http://127.0.0.1:8000/api/usuario/' + userId,{
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
                 setUsuario(response.data.nome)
                 setRua(response.data.rua)
                 setBairro(response.data.bairro)
@@ -29,22 +56,18 @@ export default function Data() {
                 setUF(response.data.uf)
                 setCep(response.data.cep)
                 setEmail(response.data.email)
-                setNum(response.data.numero)
-            })
+            }
+            catch(erro){
+                console.error("Deu erro ",erro);
+            }
     }
 
-    const put = () => {
-        axios.put('http://127.0.0.1:8000/api/usuario/' + userId,{
-            'nome': usuario,
-            'rua': rua,
-            'bairro': bairro,
-            'cidade': cidade,
-            'uf': uf,
-            'cep': cep,
-            'email': email,
-            'numero': num
-        })
-            .then((response) => {
+    const put = async(dados, token) => {
+        axios.put('http://127.0.0.1:8000/api/usuario/' + userId, dados,{
+        headers: {
+                    Authorization: `Bearer ${token}`
+                },
+            });
                 setUsuario('')
                 setRua('')
                 setBairro('')
@@ -53,7 +76,6 @@ export default function Data() {
                 setCep('')
                 setNum('')
                 setEmail('')
-            })
     }
 
 
@@ -156,7 +178,7 @@ export default function Data() {
 
             <Pressable
                     style={styles.btnDeletar}
-                    onPress={put}
+                    onPress={()=>put(dados,token)}
                 >
                     <Text style={{ fontWeight: 'bold', color: "#fff" }}>ENVIAR</Text>
     
