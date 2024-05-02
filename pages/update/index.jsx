@@ -4,7 +4,6 @@ import AsyncStorage from "@react-native-async-storage/async-storage"
 import { StyleSheet, Text, View, TextInput, Pressable, Alert } from 'react-native';
 import styles from './styles';
 
-
 export default function Data() {
 
     // ############# GET ########################
@@ -34,7 +33,7 @@ export default function Data() {
     useEffect(()=>{
         AsyncStorage.getItem('token')
         .then((tokenY)=>{
-                console.log("token create: ", tokenY)
+                console.log("token Update: ", tokenY)
                 setToken(tokenY)
         })
         .catch((erro)=>{

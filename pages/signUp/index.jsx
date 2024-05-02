@@ -1,118 +1,66 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { View, Text, Pressable, TextInput } from 'react-native'
 import { FontAwesome, AntDesign } from "@expo/vector-icons"
 import styles from './styles'
 import axios from 'axios'
 
 export default function SignUp({navigation}) {
-    const [nome, setNome] = useState('')
-    const [cep, setCep] = useState('')
-    const [email, setEmail] = useState('')
-    const [num, setNum] = useState('')
+    const [usuario, setUsuario] = useState('')
     const [password, setPassword] = useState('')
-    const [logradouro, setLogradouro] = useState('')
-    const [localidade, setLocalidade] = useState('')
-    const [bairro, setBairro] = useState('')
-    const [uf, setUf] = useState('')
+    const [erro, setErro] = useState(null)
+    const [token, setToken] = useState(null)
 
 
-    return (
+    const createUser = async()=> {
+        try{
+            const response = await axios.post('http://127.0.0.1:8000/create_user',
+        {
+            username: usuario,
+            password: password
+        })
+            const resp = await axios.post('http://127.0.0.1:8000/create_user',
+        {
+            username: usuario,
+            password: password
+        }) 
+        setToken()
+        }catch(error){
+            setErro(error)
+        }
+    }
+
+     return (
         <View style={styles.container}>
-            <View>
-                <Text style={styles.title}>Cadastrar</Text>
-            </View>
-            {/* <View style={styles.foto}>
-            {image && (
-                <>
-                    <Image source={{ uri: image }} style={styles.foto1} />
-                </>
-            )}
-            {Image && <ActivityIndicator />}
-        </View> */}
-            <View style={styles.botoes}>
-                <Pressable
-                //onPress={gallery}
-                >
-                    <FontAwesome
-                        name='image'
-                        size={40}
-                        color={'#000'}
-                    />
-                </Pressable>
-                <Pressable
-                //onPress={camera}
-                >
-                    <AntDesign
-                        name='camera'
-                        size={40}
-                        color={'#000'}
-                    />
-                </Pressable>
-            </View>
+            <Text style={styles.title}>CREATE</Text>
 
-            <TextInput
-                placeholder='nome'
-                onChangeText={(e) => { setNome(e) }}
-                value={nome}
-                style={styles.caixa}
-            />
-            <View style={styles.cx}>
+            <View style={styles.campos}>
+                <Text style={styles.texto2}>Nome:</Text>
                 <TextInput
-                    placeholder='cep'
-                    onChangeText={(e) => { setCep(e) }}
-                    value={cep}
-                    style={styles.caixaCEP}
+                    style={styles.textoNomeEmail}
+                    onChangeText={setUsuario}
+                    value={usuario}
                 />
-                <Pressable
-                    onPress={pesquisar}
-                    style={styles.btnPesquisar}
-                >
-                    <AntDesign
-                        name='search1'
-                        size={30}
-                        color={'#000'}
-                    />
-                </Pressable>
-            </View>
-
-            <View style={styles.cx}>
-                <Text style={styles.caixaCidade}>{logradouro}</Text>
+                <Text style={styles.texto2}>Senha:</Text>
                 <TextInput
-                    placeholder='nº'
-                    onChangeText={(e) => setNum(e)}
-                    value={num}
-                    style={styles.caixaNum}
+                    style={styles.addNew}
+                    onChangeText={(e) => setPassword(e)}
+                    value={password}
+                    secureTextEntry={true}
                 />
             </View>
 
-            <Text style={styles.caixaX}>{bairro}</Text>
-
-            <View style={styles.cx}>
-                <Text style={styles.caixaCidade}>{localidade}</Text>
-                <Text style={styles.caixaUF}>{uf}</Text>
+            <View style={styles.btnBtn}>
+                <Pressable
+                    style={styles.btn}
+                    onPress={createUser}
+                >
+                    <Text style={styles.btnCadastrar}>CADASTRAR</Text>
+                </Pressable>
             </View>
 
-            <TextInput
-                placeholder='email'
-                onChangeText={(e) => setEmail(e)}
-                value={email}
-                style={styles.caixa}
-            />
-            <TextInput
-                placeholder='password'
-                onChangeText={(e) => setPassword(e)}
-                value={password}
-                style={styles.caixa}
-                secureTextEntry={true}
-            />
-
-            <Pressable
-                style={styles.btnOk}
-                onPress={signup}
-            >
-                <Text style={{ fontSize: 25 }}>Ok</Text>
-            </Pressable>
-
+            <View style={{ width: "80%" }}>
+                <Text style={styles.textoErro}>{!erro ? '' : 'Erro: '}{erro}</Text>
+            </View>
         </View>
     )
 }

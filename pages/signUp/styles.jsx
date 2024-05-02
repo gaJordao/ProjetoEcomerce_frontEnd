@@ -1,180 +1,193 @@
-import {StyleSheet} from 'react-native'
+
+import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
-    container:{
+    container: {
+        flex: 1,
         alignItems:'center',
         justifyContent:'center',
-        flex:1,
     },
-    caixa:{
-        width:'80%',
-        borderWidth:1,
-        borderRadius: 5,
-        padding:8,
-        fontSize:15,
-        marginTop:10,
-        height:40,
+    ID: {
+        width: '20%',
+        height: 40,
+        borderRadius: 10,
+        borderWidth: 1,
+        paddingLeft: 10,
+        fontWeight: 'bold'
     },
-    caixaX:{
-        backgroundColor:'#aaa',
-        width:'80%',
-        borderWidth:1,
-        borderRadius: 5,
-        padding:8,
-        fontSize:15,
-        marginTop:10,
-        height:40,
+    addNew: {
+        width: '100%',
+        height: 40,
+        borderRadius: 10,
+        borderWidth: 1,
+        paddingLeft: 10,
+        fontWeight: 'bold'
     },
-    caixaCidade:{
-        backgroundColor:'#aaa',
-        width:'100%',
-        borderWidth:1,
-        borderRadius: 5,
-        padding:8,
-        fontSize:15,
-        marginTop:10,
-        height:40,
+    texto: {
+        width: '100%',
+        height: 40,
+        borderRadius: 10,
+        backgroundColor: '#bbb',
+        borderWidth: 1,
+        padding: 5,
+        fontWeight: 'bold'
     },
-    cx:{
-        flexDirection: 'row', 
-        width:'80%',
+    textoNomeEmail: {
+        backgroundColor: '#bbb',
+        width: '100%',
+        height: 40,
+        borderRadius: 10,
+        borderWidth: 1,
+        padding: 5,
+        fontWeight: 'bold'
     },
-    caixaUF:{
-        backgroundColor:'#aaa',
-        width:'15%',
-        marginLeft:15,
-        borderWidth:1,
-        borderRadius: 5,
-        padding:8,
-        fontSize:15,
-        marginTop:10,
-        height:40,
+    textoCep: {
+        width: '100%',
+        height: 40,
+        borderRadius: 10,
+        borderWidth: 1,
+        padding: 5,
+        fontWeight: 'bold',
     },
-    caixaNum:{
-        width:'15%',
-        marginLeft:15,
-        borderWidth:1,
-        borderRadius: 5,
-        padding:8,
-        fontSize:15,
-        marginTop:10,
-        alignItems:'center',
-        height:40,
+    textoNomeEmailPost: {
+        width: '100%',
+        height: 40,
+        borderRadius: 10,
+        borderWidth: 1,
+        padding: 5,
+        fontWeight: 'bold'
     },
-    btnPesquisar:{
-        backgroundColor:'#5a7bb0',
-        width:'15%',
-        height:40,
-        marginLeft:15,
-        borderWidth:1,
-        borderRadius: 5,
-        padding:8,
-        fontSize:15,
-        marginTop:10,
-        alignItems:'center'
+    textoCidade: {
+        width: '100%',
+        height: 40,
+        borderRadius: 10,
+        backgroundColor: '#bbb',
+        borderWidth: 1,
+        padding: 5,
+        fontWeight: 'bold',
     },
-    caixaCEP:{
-        width:'100%',
-        height:40,
-        borderWidth:1,
-        borderRadius: 5,
-        padding:8,
-        fontSize:15,
-        marginTop:10,
+    textoUf: {
+        width: '20%',
+        height: 40,
+        borderRadius: 10,
+        backgroundColor: '#bbb',
+        borderWidth: 1,
+        padding: 5,
+        fontWeight: 'bold',
+        marginLeft:10
+        
     },
-    title:{
+    textoCidadePost: {
+        backgroundColor: '#bbb',
+        width: '100%',
+        height: 40,
+        borderRadius: 10,
+        borderWidth: 1,
+        padding: 5,
+        fontWeight: 'bold',
+    },
+    textoUfPost: {
+        backgroundColor: '#bbb',
+        width: '20%',
+        height: 40,
+        borderRadius: 10,
+        borderWidth: 1,
+        padding: 5,
+        fontWeight: 'bold',
+        
+    },
+    title: {
+        marginTop: 20,
         fontSize: 40,
         fontWeight:'bold'
     },
-    caixas:{
-        alignItems:'center',
-        justifyContent:'center',
-        padding:20,
+    texto2: {
+        marginTop: 10,
+        
     },
-    btnOk:{
-        marginTop:20,
-        borderWidth:1,
-        borderRadius:10,
-        width:'50%',
-        height:40,
-        backgroundColor:'#5a7bb0',
-        alignItems:'center',
-        justifyContent:'center',
+    textoCidade2: {
+        marginTop: 10,
+        
     },
-    selectButton:{
-        marginTop:20,
-        borderWidth:1,
-        borderRadius:10,
-        width:'50%',
-        height:40,
-        backgroundColor:'#5a7bb0',
-        alignItems:'center',
-        justifyContent:'center',
+    textoUf2: {
+        marginTop: 10,
+        marginLeft: '70%'
     },
-    uploadButton:{
-        marginTop:20,
-        borderWidth:1,
-        borderRadius:10,
-        width:'100%',
-        height:40,
-        backgroundColor:'#5a7bb0',
-        alignItems:'center',
-        justifyContent:'center',
-    },
-    btnBuscar:{
-        backgroundColor:'#5a7bb0',
-        width:'28%',
-        height:40,
-        borderWidth:1,
+
+    
+    btn: {
+        width: 100,
+        height: 40,
+        marginTop: 25,
+        marginBottom: 10,
+        borderWidth: 1,
+        backgroundColor: '#f00',
         borderRadius: 5,
-        padding:8,
-        fontSize:25,
-        marginTop:10,
-        marginLeft:10,
-        alignItems:'center'
+        alignItems: 'center',
+        justifyContent: 'center',
     },
-    caixa1:{
-        borderWidth:1,
-        borderRadius:5,
-        padding:5,
-        marginVertical:10,
-        width:'60%',
-        height:40,
-    }, 
-    foto:{
-        width:150,
-        height:150,
-        alignItems:'center',
-        justifyContent:'center',
-        backgroundColor:'#aaa',
-        borderRadius:100,
-        marginTop:20,
-    }, 
-    foto1:{
-        width:'100%',
-        height:'100%',
-        alignItems:'center',
-        justifyContent:'center',
-        borderRadius:100,
-        marginTop:20,
-    }, 
-    btn:{
-        width:'30%',
-        height:40,
-        padding:5,
-        justifyContent:'center',
-        alignItems:'center',
-        backgroundColor:'#fff',
-        borderRadius:5,
-        shadowColor:'#36074d',
-        shadowOffset:{height:4, width:4},
-        marginVertical: 10
+    btnPost: {
+        width: 100,
+        height: 40,
+        marginTop: 25,
+        marginBottom: 10,
+        borderWidth: 1,
+        backgroundColor: '#00f',
+        borderRadius: 5,
+        alignItems: 'center',
+        justifyContent: 'center',
     },
-    botoes:{
-        flexDirection:'row',
-        justifyContent:'space-between',
-        width: '35%'
+    btnC:{
+        width:'80%',
+        alignItems:'center',
+        justifyContent:'center',
+        marginTop:10
+    },
+    btnD:{
+        width:'80%',
+        alignItems:'center',
+        justifyContent:'center',
+        marginTop:10
+    },
+    btnTxt:{
+        color:'#fff',
+        fontSize:20,
+        fontWeight: 'bold'
+    },
+    btnTxt2:{
+        color:'#000',
+        fontSize:20,
+        fontWeight: 'bold'
+    },
+    btnBuscar: {
+        width: '40%',
+        height: 50,
+        borderWidth: 1,
+        backgroundColor: '#00f',
+        borderRadius: 5,
+        alignItems: 'center',
+        justifyContent: 'center',
+        
+    },
+    btnApagar: {
+        width: '40%',
+        height: 50,
+        borderWidth: 1,
+        backgroundColor: '#f00',
+        borderRadius: 5,
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: 20
+        
+    },
+    cx: {
+        marginTop: 1,
+        width: '100%',
+        flexDirection: "row"
+    },
+    campos:{
+        width:'80%',
     }
-})
+});
 
 export default styles
