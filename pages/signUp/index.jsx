@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { View, Text, Pressable, TextInput } from 'react-native'
 import { FontAwesome, AntDesign } from "@expo/vector-icons"
+import AsyncStorage from "@react-native-async-storage/async-storage"
 import styles from './styles'
 import axios from 'axios'
+
 
 export default function SignUp({navigation}) {
     const [usuario, setUsuario] = useState('')
@@ -10,15 +12,27 @@ export default function SignUp({navigation}) {
     const [erro, setErro] = useState(null)
     const [token, setToken] = useState(null)
 
+    useEffect(()=>{
+        AsyncStorage.setItem('token', token)
+        .then(()=>{
+            if(token!=null){
+                console.log("Token SignUn: ", token)
+                console.log("Token Sucesso!")
+            }
+        })
+        .catch((erro)=>{
+            console.error("O Erro é",erro);
+        })
+    },[token])
 
     const createUser = async()=> {
         try{
-            const response = await axios.post('http://127.0.0.1:8000/create_user',
+            const response = await axios.post('http://127.0.0.1:8000/create_user/',
         {
             username: usuario,
             password: password
         })
-            const resp = await axios.post('http://127.0.0.1:8000/create_user',
+            const resp = await axios.post('http://127.0.0.1:8000/token/',
         {
             username: usuario,
             password: password
